@@ -1,6 +1,6 @@
 [package]
 name = "chaum_pedersen_auth"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "An implementation of ZKP(Zero Knowledge Proof) using chaum pedersen algorithm"
 license = "MIT OR Apache-2.0"
