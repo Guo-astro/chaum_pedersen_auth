@@ -1,6 +1,6 @@
 use num_bigint::{BigUint, RandBigInt};
 use rand::Rng;
-
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct ZKP {
     pub p: BigUint,
     pub q: BigUint,
@@ -78,10 +78,14 @@ impl ZKP {
     }
 }
 
+fn make_sure_these_traits_are_implemented<T: Sized + Send + Sync + Unpin>() {}
 #[cfg(test)]
 mod test {
     use super::*;
-
+    #[test]
+    fn test_are_these_traits_are_implemented() {
+        make_sure_these_traits_are_implemented::<ZKP>();
+    }
     #[test]
     fn test_toy_example() {
         let alpha = BigUint::from(4u32);
