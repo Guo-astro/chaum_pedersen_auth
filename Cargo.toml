@@ -1,6 +1,6 @@
 [package]
 name = "chaum_pedersen_auth"
-version = "0.1.3"
+version = "0.1.4"
 edition = "2021"
 description = "An implementation of ZKP(Zero Knowledge Proof) using chaum pedersen algorithm"
 license = "MIT OR Apache-2.0"
@@ -8,12 +8,12 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 rand = "0.8"
-num-bigint = { version = "0.4", features = ["rand"] }
+num-bigint = { version = "0.4.6", features = ["rand"] }
 hex = "0.4.3"
 
 [build-dependencies]
-tonic-build = "0.10.2"
+tonic-build = "0.12.1"
 [dev-dependencies]
-tonic = "0.10.2"
-prost = "0.12"
-tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+tonic = "0.12.1"
+prost = "0.13.1"
+tokio = { version = "1.39.3", features = ["macros", "rt-multi-thread"] }
