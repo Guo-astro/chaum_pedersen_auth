@@ -1,6 +1,8 @@
 # Change Log
 
-## 2024-09-28
+## 2024-09-28 
+
+### v0.1.5
 
 Use pdf for README.md to show better latex formulas.
 
@@ -16,6 +18,8 @@ Use pdf for README.md to show better latex formulas.
 - tokio 1.39.3->1.40.1
 
 ## 2024-08-21
+
+### v0.1.4
 
 Added change log and update dependencies.
 
