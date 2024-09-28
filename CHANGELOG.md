@@ -1,14 +1,18 @@
 # Change Log
 
-## 2024-09-28 
+## 2024-09-28
 
-### v0.1.7
+### v0.1.8
 
 Use pdf for README.md to show better latex formulas.
 
 ### Added
 
 - Added util script [covert_md_to_pdf.sh](covert_md_to_pdf.sh)
+
+### Fixed
+
+- fixed waring in build.rs:  use of deprecated method `tonic_build::Builder::compile`: renamed to `compile_protos()`
 
 ### Changed
 
