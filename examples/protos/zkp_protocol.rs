@@ -58,7 +58,13 @@ pub struct AuthenticationAnswerResponse {
 }
 /// Generated client implementations.
 pub mod auth_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
     #[derive(Debug, Clone)]
@@ -80,8 +86,8 @@ pub mod auth_client {
     where
         T: tonic::client::GrpcService<tonic::body::BoxBody>,
         T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + Send,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
     {
         pub fn new(inner: T) -> Self {
             let inner = tonic::client::Grpc::new(inner);
@@ -106,7 +112,7 @@ pub mod auth_client {
             >,
             <T as tonic::codegen::Service<
                 http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + Send + Sync,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
             AuthClient::new(InterceptedService::new(inner, interceptor))
         }
@@ -152,8 +158,7 @@ pub mod auth_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -177,8 +182,7 @@ pub mod auth_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -204,8 +208,7 @@ pub mod auth_client {
                 .ready()
                 .await
                 .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
+                    tonic::Status::unknown(
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
@@ -222,11 +225,17 @@ pub mod auth_client {
 }
 /// Generated server implementations.
 pub mod auth_server {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    #![allow(
+        unused_variables,
+        dead_code,
+        missing_docs,
+        clippy::wildcard_imports,
+        clippy::let_unit_value,
+    )]
     use tonic::codegen::*;
     /// Generated trait containing gRPC methods that should be implemented for use with AuthServer.
     #[async_trait]
-    pub trait Auth: Send + Sync + 'static {
+    pub trait Auth: std::marker::Send + std::marker::Sync + 'static {
         async fn register(
             &self,
             request: tonic::Request<super::RegisterRequest>,
@@ -250,14 +259,14 @@ pub mod auth_server {
         >;
     }
     #[derive(Debug)]
-    pub struct AuthServer<T: Auth> {
+    pub struct AuthServer<T> {
         inner: Arc<T>,
         accept_compression_encodings: EnabledCompressionEncodings,
         send_compression_encodings: EnabledCompressionEncodings,
         max_decoding_message_size: Option<usize>,
         max_encoding_message_size: Option<usize>,
     }
-    impl<T: Auth> AuthServer<T> {
+    impl<T> AuthServer<T> {
         pub fn new(inner: T) -> Self {
             Self::from_arc(Arc::new(inner))
         }
@@ -311,8 +320,8 @@ pub mod auth_server {
     impl<T, B> tonic::codegen::Service<http::Request<B>> for AuthServer<T>
     where
         T: Auth,
-        B: Body + Send + 'static,
-        B::Error: Into<StdError> + Send + 'static,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
     {
         type Response = http::Response<tonic::body::BoxBody>;
         type Error = std::convert::Infallible;
@@ -466,23 +475,25 @@ pub mod auth_server {
                 }
                 _ => {
                     Box::pin(async move {
-                        Ok(
-                            http::Response::builder()
-                                .status(200)
-                                .header("grpc-status", tonic::Code::Unimplemented as i32)
-                                .header(
-                                    http::header::CONTENT_TYPE,
-                                    tonic::metadata::GRPC_CONTENT_TYPE,
-                                )
-                                .body(empty_body())
-                                .unwrap(),
-                        )
+                        let mut response = http::Response::new(empty_body());
+                        let headers = response.headers_mut();
+                        headers
+                            .insert(
+                                tonic::Status::GRPC_STATUS,
+                                (tonic::Code::Unimplemented as i32).into(),
+                            );
+                        headers
+                            .insert(
+                                http::header::CONTENT_TYPE,
+                                tonic::metadata::GRPC_CONTENT_TYPE,
+                            );
+                        Ok(response)
                     })
                 }
             }
         }
     }
-    impl<T: Auth> Clone for AuthServer<T> {
+    impl<T> Clone for AuthServer<T> {
         fn clone(&self) -> Self {
             let inner = self.inner.clone();
             Self {
@@ -494,7 +505,9 @@ pub mod auth_server {
             }
         }
     }
-    impl<T: Auth> tonic::server::NamedService for AuthServer<T> {
-        const NAME: &'static str = "zkp_protocol.Auth";
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "zkp_protocol.Auth";
+    impl<T> tonic::server::NamedService for AuthServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
