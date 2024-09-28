@@ -2,7 +2,7 @@
 
 ## 2024-09-28
 
-### v0.1.8
+### v0.1.9
 
 Use pdf for README.md to show better latex formulas.
 
