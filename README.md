@@ -9,7 +9,7 @@
 - Take a look at Example folder which implemeted a client and a server that use gRPC as protocol.
 
 ## The theory
-![theory.png](docs%2Ftheory.png)
+![theory.png](docs/theory.png)
 ## Usage
 - Put the following crates to Cargo workspace:
     - [zkp_grpc_client](https://crates.io/crates/zkp_grpc_client)
